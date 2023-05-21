@@ -1,0 +1,14 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #91ad41;
+    --height-header: 120px;
+}
+
+.container {
+    width: 1170px;
+}
