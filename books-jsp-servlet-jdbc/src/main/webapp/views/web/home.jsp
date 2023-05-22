@@ -13,7 +13,7 @@
 			<div class="col-3">
 				<div class="card">
 					<img
-						src="data:${item.bookImages.get(0).type};base64, ${item.bookImages.get(0).base64Image}"
+						src="data:${item.bookImages.get(0).format};base64, ${item.bookImages.get(0).base64Image}"
 						class="card-img-top" alt="...">
 					<div class="card-body">
 						<h5 class="card-title">${item.name }</h5>

@@ -11,14 +11,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ndd.dto.BookDTO;
-import com.ndd.dto.BookImageDTO;
 import com.ndd.mapper.BookImageMapper;
-import com.ndd.model.UserModel;
+import com.ndd.model.BookImageModel;
+import com.ndd.model.BookModel;
 import com.ndd.services.BookImageService;
 import com.ndd.services.BookService;
 import com.ndd.utils.HttpUtil;
-import com.ndd.utils.SessionUtil;
 
 @WebServlet("/api/admin/v1/books")
 @MultipartConfig
@@ -40,26 +38,26 @@ public class BookAPI extends HttpServlet {
 		resp.setCharacterEncoding("UTF-8");
 		resp.setContentType("application/json");
 
-		List<BookDTO> list = bookService.findAll();
-		String json = HttpUtil.toJson(list);
-		resp.setStatus(HttpServletResponse.SC_OK);
-		resp.getWriter().print(json);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 
-		BookDTO bookDTO = HttpUtil.toModel(request.getParameter("data"), BookDTO.class);
-		bookDTO.setCreatedBy(((UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL")).getUsername());
-		bookDTO = bookService.save(bookDTO);
-		List<BookImageDTO> bookImageDTOs = HttpUtil.toListModel(request.getParts(), new BookImageMapper(), "images");
-		bookImageDTOs = bookImageService.save(bookImageDTOs, bookDTO.getId());
-		bookDTO.setBookImages(bookImageDTOs);
-		String bookDTOJson = HttpUtil.toJson(bookDTO);
+		BookModel bookModel = HttpUtil.toModel(request.getParameter("data"), BookModel.class);
+//		bookModel.setCreatedBy(((UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL")).getUsername());
+		bookModel = bookService.save(bookModel);
+		
+		
+		List<BookImageModel> bookImages = HttpUtil.toListModel(request.getParts(), new BookImageMapper(), "images");
+		bookImages = bookImageService.save(bookImages, bookModel.getId());
+		bookModel.setBookImages(bookImages);
+		
+		String bookDTOJson = HttpUtil.toJson(bookModel);
 		response.setStatus(HttpServletResponse.SC_CREATED);
 		response.getWriter().println(bookDTOJson);
 	}

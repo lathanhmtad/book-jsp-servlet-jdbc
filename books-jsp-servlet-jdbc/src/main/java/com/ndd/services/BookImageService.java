@@ -2,8 +2,8 @@ package com.ndd.services;
 
 import java.util.List;
 
-import com.ndd.dto.BookImageDTO;
+import com.ndd.model.BookImageModel;
 
 public interface BookImageService {
-	List<BookImageDTO> save(List<BookImageDTO> list, Long bookId);
+	List<BookImageModel> save(List<BookImageModel> list, Long bookId);
 }

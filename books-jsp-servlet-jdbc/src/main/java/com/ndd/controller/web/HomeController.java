@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ndd.dto.BookDTO;
+import com.ndd.model.BookModel;
 import com.ndd.model.UserModel;
 import com.ndd.services.BookService;
 import com.ndd.services.UserService;
@@ -58,7 +58,7 @@ public class HomeController extends HttpServlet {
 
 			}
 		} else {
-			List<BookDTO> list = bookService.findAll();
+			List<BookModel> list = bookService.findAll();
 			request.setAttribute("model", list);
 			RequestDispatcher rd = request.getRequestDispatcher("/views/web/home.jsp");
 			rd.forward(request, response);

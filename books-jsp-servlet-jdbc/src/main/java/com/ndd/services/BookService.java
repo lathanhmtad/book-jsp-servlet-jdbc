@@ -2,10 +2,10 @@ package com.ndd.services;
 
 import java.util.List;
 
-import com.ndd.dto.BookDTO;
+import com.ndd.model.BookModel;
 
 public interface BookService {
-	BookDTO save(BookDTO bookDTO);
+	BookModel save(BookModel book);
 
-	List<BookDTO> findAll();
+	List<BookModel> findAll();
 }
