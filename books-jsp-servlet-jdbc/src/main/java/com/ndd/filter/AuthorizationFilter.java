@@ -29,24 +29,24 @@ public class AuthorizationFilter implements Filter {
 		HttpServletRequest request = (HttpServletRequest) servletRequest;
 		HttpServletResponse response = (HttpServletResponse) servletResponse;
 		
-		String uri = request.getRequestURI();
-		if(uri.contains("/admin")) {
-			UserModel userModel = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
-			if(userModel != null) {
-				if(userModel.getRole().getCode().equals(SystemConstants.ADMIN)) {
-					chain.doFilter(servletRequest, servletResponse);
-				}
-				else if(userModel.getRole().getCode().equals(SystemConstants.USER)) {
-					response.sendRedirect(request.getContextPath() + "/auth?action=login&message=not_permission&alert=danger");
-				}
-			}
-			else {
-				response.sendRedirect(request.getContextPath() + "/auth?action=login&message=not_login&alert=danger");
-			}
-		} 
-		else {
-			chain.doFilter(servletRequest, servletResponse);
-		}
+//		String uri = request.getRequestURI();
+//		if(uri.contains("/admin")) {
+//			UserModel userModel = (UserModel) SessionUtil.getInstance().getValue(request, "USERMODEL");
+//			if(userModel != null) {
+//				if(userModel.getRole().getCode().equals(SystemConstants.ADMIN)) {
+//					chain.doFilter(servletRequest, servletResponse);
+//				}
+//				else if(userModel.getRole().getCode().equals(SystemConstants.USER)) {
+//					response.sendRedirect(request.getContextPath() + "/auth?action=login&message=not_permission&alert=danger");
+//				}
+//			}
+//			else {
+//				response.sendRedirect(request.getContextPath() + "/auth?action=login&message=not_login&alert=danger");
+//			}
+//		} 
+//		else {
+//			chain.doFilter(servletRequest, servletResponse);
+//		}
 		chain.doFilter(servletRequest, servletResponse);
 	}
 
